@@ -1,1 +1,4 @@
-# A-C-of-fun
+# CPassword_generator
+## Contact info:
+- Sean Pharris
+- pharris.sean@gmail.com
