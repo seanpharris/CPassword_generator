@@ -3,6 +3,15 @@
 #include <time.h>
 #include <unistd.h>
 
+/* 
+TO DO
+- Add specific modifiers such as:
+    - Min amount of specifc characters (i.e. Capitals, Numbers, Special char)
+- Save passwords with an association
+- Some sort of encryption for saved password
+- decrypt when viewing password and association
+*/
+
 void passwordGenerator(int desiredLength)
 {   
     
