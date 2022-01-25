@@ -26,6 +26,9 @@ void passwordGenerator(int desiredLength)
 
     int counter = 0;
 
+    printf("\n---------------------------------------------\n");
+    printf("Your password is:\n");
+
     srand(time(NULL));
 
     for(counter = 0 ; counter < desiredLength ; counter++ ) {
@@ -35,15 +38,8 @@ void passwordGenerator(int desiredLength)
     }
 }
 
-void modifiedPasswordGenerator(int desiredLength)
+void modifiedPasswordGenerator(int desiredLength, int desiredSpecCharAmount, int desiredUpperCharAmount, int desiredLowerCharAmount, int desiresdIntAmount)
 {   
-    int desiredSpecCharAmount;
-
-    int desiredUpperCharAmount;
-
-    int desiredLowerCharAmount;
-
-    int desiresdIntAmount;
 
     char specChar[28] = {"!@|#$%^&*()-{}[]:;\\<>./?~`\""};
 
@@ -57,21 +53,8 @@ void modifiedPasswordGenerator(int desiredLength)
     
     char symbols[desiredLength];
 
-    printf("What is the minimum amount of special characters?\n");
-    scanf("%i", &desiredSpecCharAmount);
-    printf("%i of %i characters will be special characters.\n", desiredSpecCharAmount, desiredLength);
-
-    printf("What is the minimum amount of upper case characters?\n");
-    scanf("%i", &desiredUpperCharAmount);
-    printf("%i of %i characters will be upper case characters.\n", desiredUpperCharAmount, desiredLength);
-
-    printf("What is the minimum amount of lower case  characters?\n");
-    scanf("%i", &desiredLowerCharAmount);
-    printf("%i of %i characters will be lower case characters.\n", desiredLowerCharAmount, desiredLength);
-
-    printf("What is the minimum amount of number characters?\n");
-    scanf("%i", &desiresdIntAmount);
-    printf("%i of %i characters will be number characters.\n", desiresdIntAmount, desiredLength);
+    printf("\n---------------------------------------------\n");
+    printf("Your specialized password is: \n");
 
     int counter = 0;
 
@@ -109,47 +92,91 @@ void modifiedPasswordGenerator(int desiredLength)
             intCharcount++;
         }
     }
-   
 }
-  
+
+void modifyParameters(int desiredLength)
+{
+    int desiredSpecCharAmount = 0;
+    int desiredUpperCharAmount = 0;
+    int desiredLowerCharAmount = 0;
+    int desiresdIntAmount = 0;
+    char yesOrNo;
+    int totalLength = desiredSpecCharAmount + desiredUpperCharAmount + desiredLowerCharAmount + desiresdIntAmount;
+
+    printf("%i", desiredLowerCharAmount);
+
+    while(desiredLength >= totalLength)
+    {
+        printf("What is the minimum amount of special characters you would like in your password?\n" 
+                "special characters: ");
+        scanf("%i", &desiredSpecCharAmount);
+
+        if (totalLength > desiredLength)
+        {
+            printf("The amount of total characters you have specified have surpassed the desired length of %i\n"
+                    "Would you like to change the amount of special characters?", desiredLength);
+            scanf("%s", &yesOrNo);
+            if (yesOrNo == 'y' || yesOrNo == 'Y') 
+            {
+            printf("What is the minimum amount of special characters you would like in your password?\n");
+            printf("Length of specialized password:");
+            scanf("%i", &desiredLength);
+            }
+        }
+        printf("%i of %i remaining characters for the desired length of your password.\n", (desiredLength - desiredSpecCharAmount), desiredLength);
+
+        /*
+        printf("What is the minimum amount of upper case characters you would like in your password?\n"
+            "upper case characters: ");
+        scanf("%i", &desiredUpperCharAmount);
+        printf("%i of %i remaining characters for the desired length of your password.\n", (desiredLength - desiredUpperCharAmount), desiredLength);
+        */
+
+        /*
+        printf("What is the minimum amount of lower case characters you would like in your password?\n"
+            "lower case characters: ");
+        scanf("%i", &desiredLowerCharAmount);
+        printf("%i of %i remaining characters for the desired length of your password.\n", (desiredLength - desiredLowerCharAmount), desiredLength);
+        */
+
+        /*
+        printf("What is the minimum amount of numerical characters you would like in your password?\n"
+            "numerical characters: ");
+        scanf("%i", &desiresdIntAmount);
+        printf("%i of %i remaining characters for the desired length of your password.\n", (desiredLength - desiresdIntAmount), desiredLength);
+        */
+    }
+    
+
+    modifiedPasswordGenerator(desiredLength, desiredSpecCharAmount, desiredUpperCharAmount, desiredLowerCharAmount, desiresdIntAmount);
+}
+
+
 int main()
 {
     int desiredLength;
     char yesOrNo;
-    char y = 'y';
-    char Y = 'Y';
-    char n = 'n';
-    char N = 'N';
 
-    printf("How many characters do you want your password to be?\n");
-
-    scanf("%i", &desiredLength);
-
-    printf("Your password will be %i characters long.\n", desiredLength);
-    
-    printf("Do you want to modify the types and amount of characters in your password? (\"yes\" or \"no\")\n");
-    
+    printf("Hello, this is a password generator\n");
+    printf("Do you want a specialized password? (\"yes\" or \"no\")\n");
     scanf("%s", &yesOrNo);
 
-
-
-    printf("%p\n", &yesOrNo);
-
-    if (yesOrNo == y || yesOrNo == Y) {
-        printf("\n---------------------------------------------\n");
-        printf("%i\n", desiredLength);
-        printf("Your specialized password is: \n");
-        modifiedPasswordGenerator(desiredLength);
+    if (yesOrNo == 'y' || yesOrNo == 'Y') {
+        printf("How many characters do you want your specialized password to be?\n");
+        printf("Length of specialized password:");
+        scanf("%i", &desiredLength);
+        modifyParameters(desiredLength);
     }
-    else if(yesOrNo == n || yesOrNo == N) {
-        printf("\n---------------------------------------------\n");
-        printf("Your password is: \n");
+    else if(yesOrNo == 'n' || yesOrNo == 'N') {
+        printf("How many characters do you want your password to be?\n");
+        printf("Length of password:");
+        scanf("%i", &desiredLength);
         passwordGenerator(desiredLength);
     }
-
+     
     printf("\n---------------------------------------------\n");
     printf("END\n");
-     
+
     return 0;
 }
 
